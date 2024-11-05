@@ -5,6 +5,10 @@ description = "A library for wrapping APIs I use. "
 authors = ["thatsmidnight <10793854+thatsmidnight@users.noreply.github.com>"]
 license = "CC0-1.0"
 readme = "README.md"
+packages = [
+    { include = "cellophane" }
+]
+package-mode = true
 
 [tool.poetry.dependencies]
 python = "~3.12"
@@ -15,10 +19,15 @@ black = "^24.10.0"
 pytest = "^8.3.3"
 pytest-cov = "^6.0.0"
 isort = "^5.13.2"
+poethepoet = "^0.29.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+export = "poetry export --without dev --without-hashes -f requirements.txt -o requirements.txt"
+test-unit = "poetry run pytest -s --cov-report term-missing --cov=. tests/unit"
 
 [tool.black]
 line-length = 78
